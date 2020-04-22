@@ -1,26 +1,32 @@
 # Usage:
 # make        # compile all binary
 # make clean  # remove ALL binaries and objects
+.PHONY = clean
 
-.PHONY = all clean
+CC = gcc
 
-CC = gcc                        # compiler to use
+CFLAGS = -Wall -I
+LFLAGS =
 
-LINKERFLAG = -lm
+TARGET = MyApp
 
-SRCS := $(wildcard *.c)
-BINS := $(SRCS:%.c=%)
+SRCDIR = src
+OBJDIR = obj
+BINDIR = bin
 
-all: ${BINS}
+SRCS := $(wildcard $(SRCDIR)/*.c)
+OBJS := $(SRCS: $(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
-%: %.o
-	@echo "Checking.."
-	${CC} ${LINKERFLAG} $< -o $@
+$(BINDIR)/$(TARGET): $(OBJS)
+	${CC} ${LFLAGS} $(OBJS) -o $@
+	@echo "Linking complete."
 
-%.o: %.c
+$(OBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	@echo "Creating object.."
-	${CC} -c $<
+	${CC} ${CFLAGS} -c $< -o $@
+	
 
 clean:
 	@echo "Cleaning up..."
-	rm -rvf *.o ${BINS}
+	rm -rvf $(OBJDIR)/%.o
+	rm -rvf $(BINDIR)/$(TARGET)
