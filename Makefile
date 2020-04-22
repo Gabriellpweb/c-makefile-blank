@@ -1,12 +1,11 @@
 # Usage:
 # make        # compile all binary
 # make clean  # remove ALL binaries and objects
-.PHONY = clean run
 
 CC = gcc
 EXEC = bash
 
-CFLAGS = -Wall -I
+CFLAGS = -std=c99 -Wall -I
 LFLAGS =
 
 TARGET = MyApp
@@ -16,17 +15,17 @@ OBJDIR = obj
 BINDIR = bin
 
 SRCS := $(wildcard $(SRCDIR)/*.c)
-OBJS := $(SRCS: $(SRCDIR)/%.c=$(OBJDIR)/%.o)
+OBJS := $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 $(BINDIR)/$(TARGET): $(OBJS)
 	${CC} ${LFLAGS} $(OBJS) -o $@
 	@echo "Linking complete."
 
-$(OBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
+$(OBJS): $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo "Creating object.."
 	${CC} ${CFLAGS} -c $< -o $@
-	
 
+.PHONY = clean
 clean:
 	@echo "Cleaning up..."
 	rm -rvf $(OBJDIR)/%.o
