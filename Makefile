@@ -1,9 +1,10 @@
 # Usage:
 # make        # compile all binary
 # make clean  # remove ALL binaries and objects
-.PHONY = clean
+.PHONY = clean run
 
 CC = gcc
+EXEC = bash
 
 CFLAGS = -Wall -I
 LFLAGS =
