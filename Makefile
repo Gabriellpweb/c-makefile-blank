@@ -5,7 +5,7 @@
 CC = gcc
 EXEC = bash
 
-CFLAGS = -std=c99 -Wall -I
+CFLAGS = -Wall -I.
 LFLAGS =
 
 TARGET = MyApp
