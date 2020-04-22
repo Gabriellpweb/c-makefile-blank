@@ -28,5 +28,5 @@ $(OBJS): $(OBJDIR)/%.o: $(SRCDIR)/%.c
 .PHONY = clean
 clean:
 	@echo "Cleaning up..."
-	rm -rvf $(OBJDIR)/%.o
+	rm -rvf $(OBJDIR)/*.o
 	rm -rvf $(BINDIR)/$(TARGET)
